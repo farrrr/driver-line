@@ -1,0 +1,14 @@
+{
+    "botman/driver-config": [
+        "stubs/line.php"
+    ],
+    "botman/driver": [
+        "FarLab\\Drivers\\Line\\LineDriver",
+        "FarLab\\Drivers\\Line\\LineAudioDriver",
+        "FarLab\\Drivers\\Line\\LineEventDriver",
+        "FarLab\\Drivers\\Line\\LineFileDriver",
+        "FarLab\\Drivers\\Line\\LineImageDriver",
+        "FarLab\\Drivers\\Line\\LineLocationDriver",
+        "FarLab\\Drivers\\Line\\LineVideoDriver"
+    ]
+}
