@@ -11,6 +11,11 @@ class LineLocationDriver extends LineDriver
 {
     const DRIVER_NAME = 'LineLocation';
 
+    protected function eventFilter($event)
+    {
+        return $event instanceof LocationMessage;
+    }
+
     /**
      * @param BaseEvent $event
      * @return IncomingMessage
@@ -25,5 +30,10 @@ class LineLocationDriver extends LineDriver
         $message->setLocation($location);
 
         return $message;
+    }
+
+    public function isConfigured()
+    {
+        return false;
     }
 }
