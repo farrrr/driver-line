@@ -27,7 +27,9 @@ class LineEventDriver extends LineDriver
      */
     public function hasMatchingEvent()
     {
-        $this->driverEvent = $this->getEventFromEventData($this->event->first());
+        if ($this->event) {
+            $this->driverEvent = $this->getEventFromEventData($this->event->first());
+        }
 
         return $this->driverEvent;
     }
