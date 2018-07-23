@@ -105,6 +105,8 @@ class LineDriver extends HttpDriver
      */
     protected function transformMessage(BaseEvent $event)
     {
+        log_debug($event);
+
         $message = new IncomingMessage('', $this->getMessageSender($event), $this->getMessageRecipient($event), $event);
 
         if ($event instanceof TextMessage) {
