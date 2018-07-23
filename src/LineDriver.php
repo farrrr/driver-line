@@ -105,8 +105,6 @@ class LineDriver extends HttpDriver
      */
     protected function transformMessage(BaseEvent $event)
     {
-        log_debug($event);
-
         $message = new IncomingMessage('', $this->getMessageSender($event), $this->getMessageRecipient($event), $event);
 
         if ($event instanceof TextMessage) {
@@ -174,7 +172,7 @@ class LineDriver extends HttpDriver
      * @param string|Question|OutgoingMessage|MessageBuilder|array $message
      * @param IncomingMessage $matchingMessage
      * @param array           $additionalParameters
-     * @return array|HttpDriver
+     * @return array
      * @throws LineException
      * @throws UnsupportedAttachmentException
      */
