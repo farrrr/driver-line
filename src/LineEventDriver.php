@@ -23,7 +23,7 @@ class LineEventDriver extends LineDriver
     }
 
     /**
-     * @return bool|DriverEventInterface|LineEvent
+     * @return bool|DriverEventInterface
      */
     public function hasMatchingEvent()
     {

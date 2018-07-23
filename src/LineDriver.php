@@ -15,6 +15,7 @@ use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\BaseEvent;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
+use LINE\LINEBot\Event\PostbackEvent;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\MessageBuilder;
 use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
@@ -72,7 +73,7 @@ class LineDriver extends HttpDriver
      */
     protected function eventFilter($event)
     {
-        return $event instanceof TextMessage;
+        return $event instanceof TextMessage || $event instanceof PostbackEvent;
     }
 
     /**
@@ -105,10 +106,20 @@ class LineDriver extends HttpDriver
      */
     protected function transformMessage(BaseEvent $event)
     {
+        log_debug($event);
+
         $message = new IncomingMessage('', $this->getMessageSender($event), $this->getMessageRecipient($event), $event);
 
         if ($event instanceof TextMessage) {
             $message->setText($event->getText());
+        } elseif ($event instanceof PostbackEvent) {
+            $message->setText($event->getPostbackData());
+
+            if ($params = $event->getPostbackParams()) {
+                $message->addExtras('params', $params);
+            }
+
+            $message->addExtras('isPostback', true);
         }
 
         return $message;
@@ -237,6 +248,8 @@ class LineDriver extends HttpDriver
     {
         $payload = Collection::make($payload);
 
+        log_debug($payload->get('message')->buildMessage());
+
         if ($replyToken = $payload->get('replyToken')) {
             $response = $this->api->replyMessage($replyToken, $payload->get('message'));
         } else {
@@ -274,6 +287,14 @@ class LineDriver extends HttpDriver
     {
         return ! is_null($this->config->get('channel_secret'))
             && ! is_null($this->config->get('access_token'));
+    }
+
+    /**
+     * @return LINEBot
+     */
+    public function getApi()
+    {
+        return $this->api;
     }
 
     /**
