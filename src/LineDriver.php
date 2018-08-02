@@ -106,8 +106,6 @@ class LineDriver extends HttpDriver
      */
     protected function transformMessage(BaseEvent $event)
     {
-        log_debug($event);
-
         $message = new IncomingMessage('', $this->getMessageSender($event), $this->getMessageRecipient($event), $event);
 
         if ($event instanceof TextMessage) {
@@ -247,8 +245,6 @@ class LineDriver extends HttpDriver
     public function sendPayload($payload)
     {
         $payload = Collection::make($payload);
-
-        log_debug($payload->get('message')->buildMessage());
 
         if ($replyToken = $payload->get('replyToken')) {
             $response = $this->api->replyMessage($replyToken, $payload->get('message'));
