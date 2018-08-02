@@ -4,6 +4,7 @@ namespace FarLab\Drivers\Line;
 
 use BotMan\BotMan\Interfaces\DriverEventInterface;
 use FarLab\Drivers\Line\Events\LineEvent;
+use Illuminate\Support\Collection;
 use LINE\LINEBot\Event\BaseEvent;
 use LINE\LINEBot\Event\MessageEvent;
 use LINE\LINEBot\Event\PostbackEvent;
@@ -23,12 +24,14 @@ class LineEventDriver extends LineDriver
     }
 
     /**
-     * @return bool|DriverEventInterface
+     * @return bool|DriverEventInterface|Collection
      */
     public function hasMatchingEvent()
     {
         if ($this->event && $this->event->count()) {
-            $this->driverEvent = $this->getEventFromEventData($this->event->first());
+            $this->driverEvent = Collection::make($this->event)->map(function ($event) {
+                return $this->getEventFromEventData($event);
+            });
         }
 
         return $this->driverEvent ?: false;
