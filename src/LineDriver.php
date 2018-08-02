@@ -34,7 +34,6 @@ class LineDriver extends HttpDriver
     /** @var array */
     protected $messages = [];
 
-
     /**
      * @param Request $request
      */
@@ -45,7 +44,7 @@ class LineDriver extends HttpDriver
         $this->signature = $request->headers->get(HTTPHeader::LINE_SIGNATURE);
         $this->api = new LINEBot(
             new CurlHTTPClient($this->config->get('access_token')),
-            [ 'channelSecret' => $this->config->get('channel_secret') ]
+            ['channelSecret' => $this->config->get('channel_secret')]
         );
     }
 
