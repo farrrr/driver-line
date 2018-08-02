@@ -31,7 +31,7 @@ class LineEventDriver extends LineDriver
             $this->driverEvent = $this->getEventFromEventData($this->event->first());
         }
 
-        return $this->driverEvent;
+        return $this->driverEvent ?: false;
     }
 
     /**
