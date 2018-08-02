@@ -11,7 +11,7 @@
     "homepage": "https://github.com/farlab/driver-line",
     "require": {
         "php": ">=7.0",
-        "botman/botman": "~2.1|~3.0",
+        "botman/botman": "~2.1|~3.0|dev-production",
         "linecorp/line-bot-sdk": "^3.1"
     },
     "require-dev": {
