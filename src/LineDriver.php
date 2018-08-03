@@ -192,7 +192,7 @@ class LineDriver extends HttpDriver
         if ($event instanceof BaseEvent && $replyToken = $event->getReplyToken()) {
             $parameters['replyToken'] = $replyToken;
         } else {
-            $parameters['to'] = $matchingMessage->getRecipient();
+            $parameters['to'] = $matchingMessage->getSender();
         }
 
         if (is_array($message)) {
